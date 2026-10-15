@@ -1,70 +1,60 @@
-import MenuItem from "./components/MenuITem";
+import { menuItems } from "./data/db";
+import { useOrder } from "./hooks/useOrder";
+import MenuItem from "./components/MenuItem";
 import OrderContents from "./components/OrderContents";
 import OrderTotals from "./components/OrderTotals";
 import TipPercentageForm from "./components/TipPercentageForm";
-import { useOrder } from "./hooks/useOrder";
-import { menuItems } from "./data/db";
-import { useState } from "react";
-//imports
+
 function App() {
-
-  const { 
-  order, 
-  tip,
-  setTip,
-  addItem, 
-  removeItem, 
-  placeOrder,
-  isEmpty
-} = useOrder();
-
-//Predice el tipo de dato con el useState el isActivity sera int 
-//const [isActivity, setActivity] = useState<Number>(30);
-
+  const { order, tip, setTip, addItem, removeItem, placeOrder, isEmpty } = useOrder();
 
   return (
-    <>
-      <header className="bg-dark py-5">
-        <h1 className="text-center text-white">Calculadora de Propinas y Consumo</h1>
+    <div className="bg-amber-50 min-h-screen pb-10 font-sans">
+      <header className="bg-red-700 py-8 shadow-md border-b-4 border-red-800">
+        <h1 className="text-center text-4xl font-black text-white uppercase tracking-widest">
+          Pizzería Papantonio
+        </h1>
+        <p className="text-center text-amber-200 mt-2 font-semibold text-lg">
+          Calculadora de Consumo y Propinas
+        </p>
       </header>
 
-      <main className="container-xl mt-5">
-        <h2 className="text-center">Menú</h2>
-
-        <div className="row mt-5">
-          {/* Columna Izquierda: Menú */}
-          <div className="col-md-6">
-            {menuItems.map((item) => (
-              <MenuItem key={item.id}
-                item={item} addItem={addItem} />
+      <main className="max-w-7xl mx-auto py-10 px-5 grid md:grid-cols-2 gap-10">
+        
+        {/* Menú */}
+        <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-100 h-fit">
+          <h2 className="text-3xl font-black text-stone-800 mb-6 border-b-2 border-red-500 pb-2 inline-block">
+            Nuestro Menú
+          </h2>
+          <div className="space-y-4">
+            {menuItems.map(item => (
+              <MenuItem
+                key={item.id}
+                item={item}
+                addItem={addItem}
+              />
             ))}
           </div>
+        </div>
 
-          {/* Columna Derecha: Resumen */}
-          <div className="col-md-6">
-            <div className="border border-secondary p-4 rounded">
-              {isEmpty ? (
-                <p className="text-center fs-4">La orden esta vacia</p>
-              ) : (
-                <>
-                  <OrderContents order={order} removeItem={removeItem} />
-                  <TipPercentageForm setTip={setTip} tip={tip} />
-                  <OrderTotals order={order} tip={tip} placeOrder={placeOrder} />
-                </>
-              )}
+        {/* Resumen de la Orden */}
+        <div className="bg-white p-6 rounded-xl shadow-lg border border-amber-100 h-fit sticky top-6">
+          {isEmpty ? (
+            <div className="py-20 text-center">
+              <p className="text-2xl font-black text-stone-300 uppercase">La orden está vacía</p>
+              <p className="text-stone-500 mt-2 font-medium">Selecciona deliciosos platillos del menú</p>
             </div>
-          </div>
+          ) : (
+            <>
+              <OrderContents order={order} removeItem={removeItem} />
+              <TipPercentageForm setTip={setTip} tip={tip} />
+              <OrderTotals order={order} tip={tip} placeOrder={placeOrder} />
+            </>
+          )}
         </div>
+        
       </main>
-
-      <footer className="bg-dark mt-5 py-5">
-        <div className="container-xl">
-          <p className="text-white text-center fs-4 mt-4 m-md-0">
-            Pizzeria Papantonio - Todos los derechos Reservados por papadio
-          </p>
-        </div>
-      </footer>
-    </>
+    </div>
   );
 }
 

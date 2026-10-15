@@ -13,11 +13,11 @@ type TipPercentageFormProps = {
 
 export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProps) {
     return (
-        <div className="mt-8 border-t border-gray-200 pt-6">
-            <h3 className="font-black text-2xl mb-4">Propina:</h3>
-            <form className="flex flex-col gap-2">
+        <div className="mt-8 bg-amber-50 p-5 rounded-lg border border-amber-200">
+            <h3 className="font-black text-xl text-stone-800 mb-4">Propina para el mesero:</h3>
+            <form className="flex gap-6">
                 {tipOptions.map(tipOption => (
-                    <div key={tipOption.id} className="flex gap-2 items-center">
+                    <div key={tipOption.id} className="flex items-center gap-2">
                         <input
                             type="radio"
                             id={tipOption.id}
@@ -25,8 +25,11 @@ export default function TipPercentageForm({ setTip, tip }: TipPercentageFormProp
                             value={tipOption.value}
                             onChange={(e) => setTip(+e.target.value)}
                             checked={tipOption.value === tip}
+                            className="w-5 h-5 accent-red-600 cursor-pointer"
                         />
-                        <label className="text-lg" htmlFor={tipOption.id}>{tipOption.label}</label>
+                        <label className="text-lg font-bold text-stone-700 cursor-pointer" htmlFor={tipOption.id}>
+                            {tipOption.label}
+                        </label>
                     </div>
                 ))}
             </form>

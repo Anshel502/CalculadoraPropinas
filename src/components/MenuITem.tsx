@@ -9,26 +9,16 @@ export default function MenuItem({ item, addItem }: MenuItemProps) {
     const { name, price } = item;
 
     return (
-        <div 
-            className="border-2 border-teal-400 hover:bg-teal-200 p-3 rounded-lg mb-4 flex justify-between items-center w-full cursor-pointer transition-colors"
+        <button
+            className="w-full flex justify-between items-center p-4 border-2 border-amber-100 hover:border-red-500 hover:bg-red-50 rounded-lg transition-all duration-200 group"
             onClick={() => addItem(item)}
         >
-            <div className="flex justify-between w-full items-center">
-                {"algo no se usar tailwild"}
-                <h3 className="text-black text-lg">{name}</h3>
-                
-                {}
-                <p className="font-black text-lg">${price}</p>
-                
-                {}
-                <button 
-                    type="button"
-                    className="hidden"
-                    onClick={() => addItem(item)}
-                >
-                    Agregar a la Orden
-                </button>
-            </div>
-        </div>
+            <p className="text-lg font-bold text-stone-700 group-hover:text-red-700 transition-colors">
+                {name}
+            </p>
+            <p className="font-black text-xl text-red-600 bg-white px-3 py-1 rounded-md shadow-sm border border-amber-100">
+                ${price}
+            </p>
+        </button>
     );
 }
