@@ -1,30 +1,34 @@
-import React from 'react'
-import tailwindcss from '@tailwindcss/vite'
+import type { MenuItem as MenuItemType } from "../types";
 
-export default function Menu({Menu, handlerClick}: MenuProps) {
+type MenuItemProps = {
+    item: MenuItemType;
+    addItem: (item: MenuItemType) => void;
+}
 
+export default function MenuItem({ item, addItem }: MenuItemProps) {
+    const { name, price } = item;
 
-const{id,name,price} = Menu;
-
-
-
-  return (
-   <>
-    <div className="col-md-6 col-lg-4 my-4 row align-items-center">
+    return (
+        <div 
+            className="border-2 border-teal-400 hover:bg-teal-200 p-3 rounded-lg mb-4 flex justify-between items-center w-full cursor-pointer transition-colors"
+            onClick={() => addItem(item)}
+        >
+            <div className="flex justify-between w-full items-center">
+                {"algo no se usar tailwild"}
+                <h3 className="text-black text-lg">{name}</h3>
                 
-                <div className="col-8">
-                    <h3 className="text-black fs-4 fw-bold text-uppercase">{name}</h3>
-                    <p>{price}</p>
-                    <p className="fw-black text-primary fs-3">${price}</p>
-                    <button 
-                        type="button"
-                        className="btn btn-dark w-100"
-                        onClick={() => handlerClick(Menu)}
-                    >Agregar a la Orden</button>
-                </div>
+                {}
+                <p className="font-black text-lg">${price}</p>
+                
+                {}
+                <button 
+                    type="button"
+                    className="hidden"
+                    onClick={() => addItem(item)}
+                >
+                    Agregar a la Orden
+                </button>
             </div>
-
-   </> 
-   
-  )
+        </div>
+    );
 }
